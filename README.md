@@ -49,7 +49,7 @@ It is built with Qt for the interface and OpenCV for the underlying calibration 
 The following videos illustrate the functionality:
 
 - **Before Calibration**  
-  [pre_calib_demo.mp4](pre-calib-demo.mp4)
+  [pre_calib_demo.mp4](pre_calib_demo.mp4)
 
 - **After Calibration**  
   [calib_demo.mp4](calib_demo.mp4)
