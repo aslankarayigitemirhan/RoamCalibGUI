@@ -1,98 +1,90 @@
 # Camera Calibration GUI
 
-This project provides a graphical user interface (GUI) for camera calibration.  
-It is built with Qt for the interface and OpenCV for the underlying calibration algorithms.
+Camera Calibration GUI is a desktop application for managing the full camera calibration workflow through a visual interface. The UI is built with Qt, and calibration algorithms are provided by OpenCV. The application covers device selection, live preview, dataset capture, calibration, result analysis, and dataset optimization in a single flow.
 
-## Features
+## Core Features
 
-- **Device Management**
-  - Automatically detects connected cameras.
-  - Supports multiple backends such as V4L2 and GStreamer.
+- Detect connected camera devices and open them with selectable backends
+- Show live camera preview and calibration pattern detection status
+- Support multiple calibration pattern types
+- Manage captured frames as a dataset
+- Run calibration with Pinhole and Fisheye camera models
+- Inspect RMS and per-frame reprojection error metrics
+- Review calibration outputs in visual and textual form
+- Improve dataset quality by filtering high-error frames
 
-- **Live Preview**
-  - Displays live frames from the camera.
-  - Shows distorted (original) and undistorted (corrected) images side by side.
+## Supported Calibration Patterns
 
-- **Calibration Patterns**
-  - Checkerboard
-  - Circle grid (symmetric and asymmetric)
-  - AprilTag support
-  - Fully configurable parameters.
+- Checkerboard
+- Symmetric circle grid
+- Asymmetric circle grid
+- AprilTag
 
-- **Corner Detection Settings**
-  - Sub-pixel refinement
-  - Iteration count and epsilon threshold adjustments
+## Application Flow and Screens
 
-- **Dataset Management**
-  - Captured frames are displayed in a thumbnail gallery.
-  - Import/export dataset functionality
-  - Per-frame include/exclude selection
+### 1. Device Selection
 
-- **Calibration**
-  - Supports both Pinhole and Fisheye camera models
-  - Computes RMS error and per-view reprojection error
-  - Estimates camera matrix and distortion coefficients
-  - Provides an undistortion function for new images
+Available camera devices are listed, and the connection is started with the selected backend.
 
-- **Results Visualization**
-  - Reprojection error charts (bar plots)
-  - Linearity metrics over frames
-  - Displays calibration parameters (camera matrix, distortion coefficients) in text form
-  - Export results to JSON files
+![Device selection](device_choice.png)
 
-- **Dataset Optimization**
-  - Identifies frames with high reprojection error
-  - Allows automatic exclusion of outliers based on average + sigma statistical filtering
+### 2. Live Preview Before Calibration
 
-## Demo
+This screen shows the camera stream before calibration. Pattern detection can be validated before collecting frames.
 
-The following videos illustrate the functionality:
+![Before calibration](before_calibration.png)
 
-- **Before Calibration**  
-  [pre_calib_demo.mp4](pre_calib_demo.mp4)
+### 3. Calibration Result Samples
 
-- **After Calibration**  
-  [calib_demo.mp4](calib_demo.mp4)
-Step-by-Step Calibration Visualization
-1. Device Selection Interface
+These sample views show detected feature points and calibration consistency across different frames.
 
-This screen shows available camera devices and allows backend selection (e.g., V4L2, GStreamer).
+![Calibration sample 1](calib_c1.png)
+![Calibration sample 2](calib_c3.png)
 
-2. Live Preview (Before Calibration)
+### 4. Dataset Optimization
 
-Displays raw distorted frames captured from the camera along with detected calibration patterns.
+The optimization screen is used to identify frames with high error. This step helps improve calibration quality by removing outlier frames.
 
-3. Calibration Result Samples
-<p align="center"> <img src="calib_c1.png" width="45%" /> <img src="calib_c3.png" width="45%" /> </p>
+![Dataset optimization](optimizedataset.png)
 
-Examples of detected feature points and calibration consistency across different frames.
+### 5. Optimized Dataset View
 
-4. Dataset Optimization Interface
+After optimization, the remaining dataset and improved balance can be reviewed in this view.
 
-Provides statistical filtering tools to identify and remove high-error frames.
+![Optimized dataset](after_optimized_dataset.png)
 
-5. Optimized Dataset Results
+### 6. Results Screen
 
-Shows improved calibration performance after excluding outlier frames.
+RMS, reprojection errors, and estimated calibration parameters are displayed in detail.
+
+![Results screen](results.png)
+
+## Demo Videos
+
+- Pre-calibration flow: [pre_calib_demo.mp4](pre_calib_demo.mp4)
+- Calibration process sample: [calib_demo.mp4](calib_demo.mp4)
+
 ## Usage
 
-1. Select and open a camera device.
-2. Configure the calibration pattern.
-3. Verify that the pattern is correctly detected in the live preview.
-4. Capture sufficient frames.
+1. Select a camera device and start the connection.
+2. Configure calibration pattern type and pattern parameters.
+3. Verify pattern detection in the live preview.
+4. Capture enough frames to build the dataset.
 5. Run calibration.
-6. Inspect results and optionally optimize the dataset.
+6. Review error metrics and calibration parameters in the results screen.
+7. Optionally optimize the dataset and rerun calibration.
 
 ## Dependencies
 
-- Qt 6 (Widgets + Charts modules)
+- Qt 6 (Widgets and Charts)
 - OpenCV (core, imgproc, calib3d, highgui)
-- Eigen (for advanced math operations)
+- Eigen
 
-## Build Instructions
+## Build
 
 ```bash
 mkdir build && cd build
 cmake ..
 make
 ./calib_gui
+```
