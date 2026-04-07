@@ -53,7 +53,27 @@ The following videos illustrate the functionality:
 
 - **After Calibration**  
   [calib_demo.mp4](calib_demo.mp4)
+Step-by-Step Calibration Visualization
+1. Device Selection Interface
 
+This screen shows available camera devices and allows backend selection (e.g., V4L2, GStreamer).
+
+2. Live Preview (Before Calibration)
+
+Displays raw distorted frames captured from the camera along with detected calibration patterns.
+
+3. Calibration Result Samples
+<p align="center"> <img src="calib_c1.png" width="45%" /> <img src="calib_c3.png" width="45%" /> </p>
+
+Examples of detected feature points and calibration consistency across different frames.
+
+4. Dataset Optimization Interface
+
+Provides statistical filtering tools to identify and remove high-error frames.
+
+5. Optimized Dataset Results
+
+Shows improved calibration performance after excluding outlier frames.
 ## Usage
 
 1. Select and open a camera device.
