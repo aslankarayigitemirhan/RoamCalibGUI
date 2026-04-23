@@ -35,7 +35,7 @@ ResultsWindow::ResultsWindow(const CalibrationResult& res,
 
     auto *mainLayout = new QVBoxLayout(this);
 
-    // 🔹 Kamera matrisi ve parametreler için subpanel
+    
     QGroupBox *paramBox = new QGroupBox("Calibration Parameters", this);
     auto *paramLay = new QVBoxLayout(paramBox);
     lblParams = new QLabel(this);
@@ -44,7 +44,7 @@ ResultsWindow::ResultsWindow(const CalibrationResult& res,
     paramLay->addWidget(lblParams);
     buildParamsText();
 
-    // 🔹 Tab widget (grafikler)
+    
     tabWidget = new QTabWidget(this);
 
     // Reprojection plot tab
@@ -63,7 +63,7 @@ ResultsWindow::ResultsWindow(const CalibrationResult& res,
     buildPlot_Linearity();
     tabWidget->addTab(tabLinear, "Linearity");
 
-    // 🔹 Hepsini ana layout’a ekle
+    
     mainLayout->addWidget(paramBox, 1);   // üst panel
     mainLayout->addWidget(tabWidget, 3);  // alt panel
     setLayout(mainLayout);
@@ -75,10 +75,10 @@ ResultsWindow::ResultsWindow(const CalibrationResult& res,
 
 void ResultsWindow::buildParamsText() {
     QString s;
-    s += "📏 RMS Error: " + QString::number(res_.rms, 'f', 4) + "\n";
-    s += "🖼️ Image Size: " + QString::number(imgSize_.width) + " x " + QString::number(imgSize_.height) + "\n\n";
+    s += "RMS Error: " + QString::number(res_.rms, 'f', 4) + "\n";
+    s += "Image Size: " + QString::number(imgSize_.width) + " x " + QString::number(imgSize_.height) + "\n\n";
 
-    s += "📐 Camera Matrix K:\n";
+    s += "Camera Matrix K:\n";
     if (!res_.K.empty()) {
         for (int r=0;r<res_.K.rows;++r) {
             for (int c=0;c<res_.K.cols;++c) {
@@ -88,7 +88,7 @@ void ResultsWindow::buildParamsText() {
         }
     }
 
-    s += "\n🎯 Distortion Coeffs D: ";
+    s += "\nDistortion Coeffs D: ";
     if (!res_.D.empty()) {
         for (int i=0;i<res_.D.total();++i)
             s += QString::number(res_.D.at<double>(i), 'f', 6) + " ";
@@ -145,7 +145,7 @@ void ResultsWindow::buildPlot_Reproj() {
     series->attachAxis(axX);
     series->attachAxis(axY);
 
-    // 🔹 RMS line (benchmark)
+    
     auto *rmsLine = new QLineSeries();
     rmsLine->setName("RMS error");
     rmsLine->setColor(Qt::red);
