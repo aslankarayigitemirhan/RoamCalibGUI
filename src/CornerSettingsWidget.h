@@ -30,7 +30,6 @@ public:
     explicit CornerSettingsWidget(QWidget* parent=nullptr);
 
     CornerSettings settings() const;
-    /// 🔑 Yeni: parametreleri dışarıdan uygula
     void apply(const CornerSettings& s);
 
 signals:
