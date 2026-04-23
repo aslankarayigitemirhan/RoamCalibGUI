@@ -124,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Optimize Dataset
     btnOptimize = new QPushButton("Optimize Dataset", this);
-    btnOptimize->setEnabled(false); // ✅ Başlangıçta pasif
+    btnOptimize->setEnabled(false); 
     midBtns->addWidget(btnOptimize);
 
     auto *mainLay = new QVBoxLayout(central);
@@ -184,7 +184,7 @@ void MainWindow::handleCaptureClicked()
 
             btnCalibrate->setEnabled(acceptedFrames.size() >= 5);
             btnExport->setEnabled(true);
-            btnOptimize->setEnabled(acceptedFrames.size() >= 5);   // ✅ aktif et
+            btnOptimize->setEnabled(acceptedFrames.size() >= 5);   
 
             statusLbl->setText("Frame captured.");
         }
@@ -236,7 +236,7 @@ void MainWindow::importDataset()
 
     btnCalibrate->setEnabled(acceptedFrames.size() >= 5);
     btnExport->setEnabled(!acceptedFrames.empty());
-    btnOptimize->setEnabled(acceptedFrames.size() >= 5);   // ✅ aktif et
+    btnOptimize->setEnabled(acceptedFrames.size() >= 5);   
 }
 
 // -------- Device --------
@@ -289,7 +289,7 @@ void MainWindow::optimizeDataset() {
     var /= res.perViewError.size();
     double sigma = std::sqrt(var);
 
-    double threshold = meanErr + sigma;  // 🔑 İstatistiksel eşik
+    double threshold = meanErr + sigma;  
 
     QVector<int> badIdx;
     for (int i = 0; i < (int)res.perViewError.size(); ++i) {
@@ -325,7 +325,7 @@ void MainWindow::optimizeDataset() {
     for (int i=0; i<x; ++i) {
         int idx = ranked[i].first;
         acceptedFrames[idx] = cv::Mat();      
-        gallery->markExcluded(idx);           // ✅ UI’de kalın çizgi / gri arka plan
+        gallery->markExcluded(idx);           
     }
 
     QMessageBox::information(this, "Optimize",
@@ -499,7 +499,7 @@ void MainWindow::runCalibration()
         return;
     }
 
-    // 🔹 Artık ana calib nesnemizi güncelliyoruz
+    
     calib.setPattern(temp.pattern());
     calib.setCorner(temp.corner());
     calib.setModel(temp.model());
@@ -537,7 +537,6 @@ void MainWindow::exportDataset()
 void MainWindow::openSettingsWindow()
 {
     SettingsWindow dlg(this);
-    // ✅ Artık mevcut pattern/corner/model ayarlarını gönderiyoruz
     dlg.setInitial(calib.pattern(), calib.corner(),
                    calib.model(), datasetTargetSize);
 
