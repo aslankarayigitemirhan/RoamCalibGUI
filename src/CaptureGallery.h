@@ -24,7 +24,7 @@ public:
 
     void setThumbnailSize(const QSize &size);
     void setGridMode(bool grid);
-    void markExcluded(int idx); // 🔹 yeni fonksiyon
+    void markExcluded(int idx); 
 
 protected:
     void resizeEvent(QResizeEvent *ev) override;
