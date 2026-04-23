@@ -6,7 +6,7 @@ CalibrationController::CalibrationController(QObject* parent): QObject(parent) {
 
 void CalibrationController::setPattern(const PatternConfig& cfg) { pCfg = cfg; }
 void CalibrationController::setCorner(const CornerSettings& s) { cSet = s; }
-void CalibrationController::setModel(CameraModel m) { model_ = m; }   // ✅ model_ kullanılıyor
+void CalibrationController::setModel(CameraModel m) { model_ = m; }   
 
 void CalibrationController::clear() {
     imgPoints.clear();
@@ -49,7 +49,6 @@ bool CalibrationController::detectPattern(const cv::Mat& gray,
         found = cv::findCirclesGrid(gray, patSize, corners, cv::CALIB_CB_ASYMMETRIC_GRID);
     } 
     else if (pCfg.type == PatternType::AprilTag) {
-        // ✅ AprilTag için aruco dictionary kullanılır
         cv::Ptr<cv::aruco::Dictionary> dict;
         if (pCfg.tagFamily == 0)
             dict = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_APRILTAG_36h11);
@@ -112,7 +111,7 @@ bool CalibrationController::calibrate(CalibrationResult& out) {
     std::vector<cv::Mat> rvecs, tvecs;
     double rms = 0.0;
 
-    if (model_ == CameraModel::Fisheye) {   // ✅ model_ kullanılıyor
+    if (model_ == CameraModel::Fisheye) {   
         K = cv::Mat::eye(3,3,CV_64F);
         D = cv::Mat::zeros(4,1,CV_64F);
         std::vector<cv::Mat> rvecs_, tvecs_;
@@ -134,7 +133,7 @@ bool CalibrationController::calibrate(CalibrationResult& out) {
     out.perViewError.resize(imgPoints.size());
     for (size_t i=0; i<imgPoints.size(); ++i) {
         std::vector<cv::Point2f> proj;
-        if (model_==CameraModel::Fisheye)   // ✅ model_ kullanılıyor
+        if (model_==CameraModel::Fisheye)   
             cv::fisheye::projectPoints(objPts[i], proj, rvecs[i], tvecs[i], K, D);
         else
             cv::projectPoints(objPts[i], rvecs[i], tvecs[i], K, D, proj);
