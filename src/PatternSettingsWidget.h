@@ -32,8 +32,6 @@ public:
     explicit PatternSettingsWidget(QWidget* parent = nullptr);
 
     PatternConfig config() const;
-
-    /// 🔑 Parametreleri dışarıdan uygula
     void apply(const PatternConfig& cfg);
 
 signals:
